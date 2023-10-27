@@ -17,9 +17,9 @@ use App\Http\Controllers\AnimalController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-
-    // Route::get('/animals', [AnimalController::class, 'index']);
-    // Route::post('/animals', [AnimalController::class, 'store']);
-    // Route::put('/animals/{id}', [AnimalController::class, 'update']);
-    // Route::delete('/animals/{id}', [AnimalController::class, 'destroy']);    
+    
 });
+Route::get('/animals', [AnimalController::class, 'index']);
+Route::post('/animals', [AnimalController::class, 'store']);
+Route::put('/animals/{id}', [AnimalController::class, 'update']);
+Route::delete('/animals/{id}', [AnimalController::class, 'destroy']);    

@@ -18,16 +18,16 @@ class AnimalController extends Controller
 
     public function store(Request $request) {
         // $animal = 'burung';
-        $burung = $request->input('burung');
-        array_push($this->animals, $burung);
-        echo "Nama hewan: ".$burung;
+        // $burung = $request->input('burung');
         echo "<br>";
         echo "Menambahkan hewan baru";
+        array_push($this->animals, $request->nama);
+        // echo "Nama hewan: ".$animal;
         $this->index();
     }
     public function update(Request $request, $id) {
-        $animal = 'bebek';
-        $this->animals[$id-1] = $animal;
+        // $animal = 'bebek';
+        $this->animals[$id-1] = $request->nama;
         echo "Mengupdate data hewan id $id";
         $this->index();
     }
