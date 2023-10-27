@@ -7,10 +7,6 @@ use Illuminate\Http\Request;
 class AnimalController extends Controller
 {
     public $animals = ["Buaya", "Kadal"];
-
-    public function __construct() {
-
-    }
     
     public function index() {
         echo "Menampilkan data animals";
