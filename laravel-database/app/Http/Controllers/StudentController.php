@@ -7,30 +7,81 @@ use App\Models\Student;
 
 class StudentController extends Controller
 {
-    public function index(){
-        $students = Student::all();
+    public function index(Request $request){
 
+    $students = Student::all();
+
+    // Query Parameter
+    $nama = $request->query('nama');
+    $major = $request->query('major');
+    $sort = $request->query('sort');
+    $order = $request->query('order');
+
+    if ($nama) {
+        $students = Student::where('nama', 'like', '%'.$nama.'%')
+        ->get();
+    } else if ($major) {
+        $students = Student::where('jurusan', 'like', '%'.$major.'%')
+        ->get();
+    }
+    else {
+        $students;
+    }
+
+    if ($sort){
+        $students = Student::orderBy($sort, $order ?? 'asc')->get();
+    } else {
+        $students;
+    }
+
+    if ($students) {
         $data = [
-            'message' => 'Get all students',
+            'message' => 'Get data successfully',
             'data' => $students
         ];
 
-        // echo "tes";
-        return response()->json($data, 200);
+    return response()->json($data, 200);
+    }
+    else {
+        $data = [
+            'message' => 'No students found'
+      ];
+    return response()->json($data, 404);
+    }
+
+        // $students = Student::all();
+
+        // if ($students) {
+        //     $data = [
+        //         'message' => 'Get all students',
+        //         'data' => $students
+        //     ];
+
+        //     return response()->json($data, 200);
+        // }
+        // else {
+        //     $data = [
+        //         'message' => 'No students found'
+        //     ];
+        //     return response()->json($data, 404);
+        // }
     }
     public function store(Request $request){
-        $input = [
-            'nama' => $request->nama,
-            'nim' => $request->nim,
-            'email' => $request->email,
-            'jurusan' => $request->jurusan,
-        ];
+        $validatedData = $request->validate([
+            'nama' => 'required',
+            'nim' => 'numeric|required',
+            'email' => 'email|required',
+            'jurusan' => 'required',
+        ]);
 
-        $student = Student::create($input);
+        if ($validatedData) {
 
-        $data = ['message' => 'Student is created successfully', 'data' => $student,];
+            $student = Student::create($validatedData);
 
-        return response()->json($data, 201);
+            $data = ['message' => 'Student is created successfully', 'data' => $student,];
+
+            return response()->json($data, 201);
+        }
     }
     public function update(Request $request, $id){
         $student = Student::find($id);
@@ -79,7 +130,7 @@ class StudentController extends Controller
 
         if ($student) {
             $data = [
-                'message' => 'Get all students',
+                'message' => 'Student found',
                 'data' => $student
             ];
 
