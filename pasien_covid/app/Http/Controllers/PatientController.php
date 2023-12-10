@@ -92,7 +92,7 @@ class PatientController extends Controller
 
         if ($patient) {
             $data = [
-                'message' => 'Patient updated successfully',
+                'message' => 'Patient updated successfully',    
                 'data' => $patient
 
             ];
