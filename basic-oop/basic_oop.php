@@ -10,7 +10,7 @@ class Animal
   # parameter: data hewan (array)
   public function __construct($data)
   {
-    $this->animals = $data = ["Buaya", "Kadal"];
+    $this->animals = $data;
   }
 
   # method index - menampilkan data animals
@@ -27,14 +27,22 @@ class Animal
   public function store($data)
   {
     # gunakan method array_push untuk menambahkan data baru
-    array_push($this->animals, $data);
+    if ($data != null) {
+      array_push($this->animals, $data); 
+    } else {
+      $this->animals;
+    }
   }
 
   # method update - mengupdate hewan
   # parameter: index dan hewan baru
   public function update($index, $data)
   {
-    $this->animals[$index] = $data;
+    if(array_key_exists($index, $this->animals)) {
+      $this->animals[$index] = $data;
+    } else {
+      $this->animals;
+    }
   }
 
   # method delete - menghapus hewan
@@ -42,7 +50,11 @@ class Animal
   public function destroy($index)
   {
     # gunakan method unset atau array_splice untuk menghapus data array
-    unset($this->animals[$index]);
+    if ($index <= sizeof($this->animals)) {
+      unset($this->animals[$index]);
+    } else {
+      $this->animals;
+    }
     
   }
 }
