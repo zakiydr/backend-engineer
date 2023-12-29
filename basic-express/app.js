@@ -1,12 +1,14 @@
-const express = require('express');
+import express, { json, urlencoded } from 'express';
 
-const router = require('./routes/api');
+import router from "./routes/api";
+// import router from "../routes/api.js"; // Update the import statement
+
 
 const app = express();
 const port = 3000;
 
-app.use(express.json());
-app.use(express.urlencoded({extended: true})); 
+app.use(json());
+app.use(urlencoded({extended: true})); 
 
 app.use(router);
 
