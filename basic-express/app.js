@@ -1,6 +1,6 @@
 import express, { json, urlencoded } from 'express';
 
-import router from "./routes/api";
+import router from "./routes/api.js";
 // import router from "../routes/api.js"; // Update the import statement
 
 

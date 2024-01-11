@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/database";
+import sequelize from "../config/database.js";
 
-const Student = define("Student", {
+const Student = sequelize.define("Student", {
     nama: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -21,7 +21,7 @@ const Student = define("Student", {
 });
 
 try {
-    await Student.sync();
+    await sequelize.sync();
     console.log("The table Student was created")
 } catch (error) {
     console.log("Cannot create table ", error);
